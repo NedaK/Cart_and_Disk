@@ -1,0 +1,399 @@
+
+<nav class="black" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo"
+        style="font-family: Deftone-Stylus; color: whitesmoke;">The Cart & Disc</a>
+      <ul class="right hide-on-med-and-down">
+        
+        <div class="valign-wrapper">
+          <li>Welcome {{firstName}} {{lastName}}!</li>
+          <li><a href="#"><i class="fa fa-fw fa-thumbs-up" ></i> {{numberOfPositiveRatings}}</a></li> 
+          <li><a href="#"><i class="fa fa-fw fa-thumbs-down" ></i> {{numberOfNegativeRatings}}</a></li> 
+          <li>
+            <a class="waves-effect waves-light btn-small" href="/list-game">List a game</a>
+
+          </li>
+          <li>
+            <a class="waves-effect waves-light btn-small" href="/logout">Logout</a>
+
+          </li>
+
+          <li><a href="#">Credits: {{credits}} </a></li> 
+          <li><a class="waves-effect waves-light btn-small" data-id={{id}} id="add-credit">Add Credits</a></li>
+        </div>
+      </ul>
+      
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="./signup.html">Sign Up</a></li>
+        <li><a href="#">Log In</a></li>
+        <br>
+        <li><a href="#">Recently Added</a></li>
+        <li><a href="#">Nintendo Switch</a></li>
+        <li><a href="#">XBOX one</a></li>
+        <li><a href="#">PS4</a></li>
+        <li><a href="#">Nintendo 3DS</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+</nav>
+  
+        
+  
+  <div class="container">
+
+    <div class="row">
+    <form class="col s12 centered">
+      <div class="row">
+        <div class="input-field centered">
+          <i class="material-icons prefix">search</i>
+          <input class= "autocomplete" id="search" type="text" class="validate">
+          <label for="icon_prefix">Search</label>
+          {{!-- <i class="material-icons suffix">close</i> --}}
+
+        </div>
+      </div>
+    </form>
+    </div>
+  
+    
+      
+            {{!-- <input class = "autocomplete" id="search icon_prefix" type="search" required> --}}
+            {{!-- <label class="label-icon prefix" for="search">Search for a Game</label> --}}
+            
+          
+    <div class="container col s12 centered" id="search-results" style="display:none">
+      <h3>Search Results:</h3> 
+    </div>
+  </div>
+  
+  <div class="parallax-container">
+      <div class="parallax"><img class="paraImg"src="./resources/images/mainImage.png" alt="mainImage"></div>
+  </div>
+    <div class="section white">
+      <div class="row container">
+          <div class="col s12">
+
+      <div class="container col s12 centered"id="current"><h3>Your Current Sell Offers:</h3></div>
+      <table class="striped centered">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Console</th>
+              <th>Condition</th>
+              <th>Description</th>
+              <th>Delete?</th>
+
+          </tr>
+        </thead>
+         
+        <tbody>
+          
+            {{#each salesData}}
+            {{#unless tradeCompleteBool}}
+            {{#unless inTransaction}}
+            <tr>
+            <td>{{name}} </td>
+            <td>{{price}}</td>
+            <td>{{consoleType}}</td>
+            <td>{{#if condition}}
+                  {{condition}}
+                  {{else}}
+                  You haven't specified the condition of this item!
+                  {{/if}}</td>
+            <td>{{#if description}}
+                  {{description}}
+                  {{else}}
+                  You haven't given a description of this item!
+                  {{/if}}</td>
+            <td><a class="waves-effect waves-light btn-small del-button" data-id={{id}}>Delete this Post</a></td>
+          
+          </tr>
+          {{/unless}}
+          {{/unless}}
+          {{/each}}
+        </tbody>
+      </table>  
+      </div>
+    </div>
+  </div>
+
+    <div class="parallax-container">
+      <div class="parallax"><img class="paraImg"src="./resources/images/mainImage.png" alt="mainImage"></div>
+    </div>
+
+  <div class="section white">
+      <div class="row container">
+          <div class="col s12">
+
+      <div class="container col s12 centered"id="buy"><h3>Your Buy Requests:</h3></div>
+      <table class="striped centered">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Transaction Started</th>
+              <th>Trade Complete</th>
+
+              <th>Leave Feedback</th>
+
+          </tr>
+        </thead>
+         
+        <tbody>
+            {{#each buyData}}
+            
+            <tr>
+              <td>{{name}} </td>
+              <td>{{price}}</td>
+              <td>{{transactionStartedAtTime}}</td>
+              <td>{{#if tradeCompleteBool}}
+                Yes
+                {{else}}
+                No
+                {{/if}}
+              </td>
+              <td><a class="waves-effect waves-light btn-small feedback" data-id={{id}}>Give Feedback</a></td>
+            
+          </tr>
+         
+          {{/each}}
+          
+        </tbody>
+      </table>  
+      </div>
+    </div>
+  </div>       
+   
+ 
+<div class="parallax-container">
+      <div class="parallax"><img class="paraImg"src="./resources/images/mainImage.png" alt="mainImage"></div>
+    </div>
+  
+  
+  
+
+
+
+<div class="section white">
+      <div class="row container">
+          <div class="col s12">
+
+      <div class="container col s12 centered"id="in-progress"><h3>Transaction in Progress:</h3></div>
+      <table class="striped centered">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Console</th>
+              <th>Condition</th>
+              <th>Description</th>
+
+          </tr>
+        </thead>
+         
+        <tbody>
+            {{#each salesData}}
+            {{#if inTransaction}}
+            <tr>
+            <td>{{name}} </td>
+            <td>{{price}}</td>
+            <td>{{consoleType}}</td>
+            <td>{{#if condition}}
+                  {{condition}}
+                  {{else}}
+                  Condition Not Specified
+                  {{/if}}</td>
+            <td>{{#if description}}
+                  {{description}}
+                  {{else}}
+                  No Description
+                  {{/if}}</td>
+          
+          </tr>
+          {{/if}}
+          {{/each}}
+          
+        </tbody>
+      </table>  
+      </div>
+    </div>
+  </div>       
+
+<div class="parallax-container">
+      <div class="parallax"><img class="paraImg"src="./resources/images/mainImage.png" alt="mainImage"></div>
+    </div>
+
+<div class="section white">
+      <div class="row container">
+          <div class="col s12">
+
+      <div class="container col s12 centered"id="previous"><h3>Previous Sales:</h3></div>
+      <table class="striped centered">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Sold Time</th>
+              {{!-- <th>Delete?</th> --}}
+              
+
+          </tr>
+        </thead>
+         
+        <tbody>
+            
+            {{#each salesData}}
+            {{#if tradeCompleteBool}}
+            
+            <tr>
+              <td>{{name}} </td>
+              <td>{{price}}</td>
+              <td>{{soldAtTime}}</td>
+              {{!-- <td><a class="waves-effect waves-light btn-small del-button" data-id={{id}}>Delete this Post</a></td> --}}
+            
+          </tr>
+         {{/if}}
+          {{/each}}
+          
+          
+        </tbody>
+      </table>  
+      </div>
+    </div>
+  </div>       
+
+</div>
+
+<script>
+$(document).ready(function(){
+$('.parallax').parallax();
+  //Autocomplete
+  $(function() {
+    $.ajax({
+      type: 'GET',
+      url: '/api/sellOffers/typeahead/names',
+     success: function(response) {
+       console.log(response);
+
+       //var nameArray = response;
+       //console.log(nameArray);
+       //console.log(nameArray.length);
+       // var namesObj = {};
+
+        const myArray = response;
+        const myObj = myArray.reduce((a, key) => Object.assign(a, { [key]: null }), {});
+        console.log(myObj);
+        
+        //console.log(namesObj);
+        $("input.autocomplete").autocomplete({
+          data: myObj,
+        
+        limit: 5, // The max amount of results that can be shown at once. 
+       });
+     }
+     });
+  });
+ // });
+//});
+  //giant bomb parrallax pic fill in....
+  
+      
+      
+  $(document).keyup(function(event){
+    event.preventDefault()
+  })
+  $("#submit").on("click",function(e){
+    e.preventDefault();
+  });
+  $('form').keypress(function(event) { 
+    if (event.keyCode===13){
+      event.preventDefault();
+      var searchQuery=$("#search").val().trim();
+      console.log(searchQuery);
+      $.ajax({method:"GET",url:"/api/sellOffers/query/"+searchQuery}).then(function(response){
+        console.log(response);
+        $("#search-results").css("display","inherit");
+        for(var i=0;i<response.length;i++){
+
+
+          
+          var card =`<div class="section white">
+        <div class="row container">
+          <div class="col 12">
+            
+              <table class="striped centered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Condition</th>
+                    <th>Console</th>
+                    <th>Buy Game</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td>${response[i].name}</td>
+                      <td>${response[i].price}</td>
+                      <td>${response[i].condition}</td>
+                      <td>${response[i].consoleType}</td>
+                      <td><a href="#" class="waves-effect waves-light btn-small buy-button" data-id=${response[i].id}>Buy This Game</a></td>
+                    </tr>
+                </tbody>
+                </table>
+                <div id=${response[i].id}></div>
+              </div>
+            </div>
+          </div>`;
+
+      $("#search-results").append(card);
+        }
+      })
+    }
+  
+}); 
+$(document).on("click",".del-button",function(){
+  console.log("hit delete")
+    console.log(this)
+    var idToDel=$(this).data("id");
+    console.log(idToDel);
+    $.ajax({method:"DELETE",url:"/api/sellOffers/"+idToDel}).then(function(response){
+      window.location.reload();
+    })
+  });
+  $(document).on("click","#add-credit",function(){
+    
+    var id=$(this).data("id");
+    var url="/api/users/add-credit/"+id;
+    
+    $.ajax({method:"PUT",url:url,data:{}}).then(function(response){
+        
+    })
+  })  
+//get the sell offers from the user
+$(document).on("click",".buy-button",function(){
+  console.log("hit buy")
+    console.log(this)
+    var idToBuy=$(this).data("id");
+    console.log(idToBuy);
+    $.ajax({method:"PUT",url:"/api/sellOffers/buy",data:{id:idToBuy}}).then(function(response){
+      console.log(response);
+      $("#"+idToBuy).append(response);
+      if(response==="Success!"){
+        $("#"+idToBuy).css("color","green");
+        window.location.reload();
+      } else{
+        $("#"+idToBuy).css("color","red");
+
+      }
+    })
+   
+
+})
+//get the sell offers from the user
+
+});
+
+</script>
+
